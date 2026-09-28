@@ -1,13 +1,12 @@
-INSERT INTO produtos (nome, categoria, fornecedor, preco_compra, preco_venda, estoque_atual)
+INSERT INTO entradas (descricao, categoria, cliente, valor, data)
 VALUES
-('Ração Premium 10kg', 'Alimentação', 'Fornecedor A', 120.00, 180.00, 50),
-('Brinquedo Bola', 'Brinquedos', 'Fornecedor B', 10.00, 25.00, 100),
-('Coleira Ajustável', 'Acessórios', 'Fornecedor C', 15.00, 30.00, 40),
-('Shampoo Pet', 'Higiene', 'Fornecedor D', 8.00, 20.00, 30);
-
-INSERT INTO movimentacoes (produto_id, tipo, quantidade)
+('Corte feminino', 'Serviço', 'Cliente A', 80.00, '2026-09-03'),
+('Manicure e pedicure', 'Serviço', 'Cliente B', 60.00, '2026-09-03'),
+('Tintura cabelo', 'Serviço', 'Cliente C', 150.00, '2026-09-02'),
+('Escova progressiva', 'Serviço', 'Cliente D', 250.00, '2026-09-01'),
+('Aluguel da sala', 'Receita Extra', 'Locatária X', 1200.00, '2026-09-01');
+INSERT INTO saidas (descricao, categoria, fornecedor, valor, data)
 VALUES
-(1, 'entrada', 20),
-(2, 'saida', 5),
-(3, 'entrada', 10),
-(4, 'saida', 2);
+('Conta de energia elétrica', 'Despesas Fixas', 'Concessionária Y', 450.00, '2026-09-01'),
+('Compra de shampoo profissional', 'Produtos', 'Fornecedor X', 300.00, '2026-09-02'),
+('Material de manicure', 'Produtos', 'Fornecedor W', 150.00, '2026-09-03');
