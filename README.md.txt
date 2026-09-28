@@ -1,69 +1,211 @@
-# 🐾 Controle de Estoque Petshop
+# 💰 Sistema de Fluxo de Caixa para Salão de Beleza
 
-Sistema completo para gerenciamento de produtos e movimentações de estoque em um petshop.  
-Inclui **frontend (React)**, **backend (Node.js/Express)** e scripts de **banco de dados (PostgreSQL)**.
+Sistema completo para gerenciamento financeiro de um salão de beleza.
+
+Permite o controle de entradas e saídas financeiras, cálculo automático de saldo e geração de relatórios para acompanhamento do fluxo de caixa.
+
+Inclui:
+
+- Frontend em React
+- Backend em Node.js e Express
+- Banco de Dados PostgreSQL
 
 ---
 
-## 📂 Estrutura do Projeto
-controle-estoque-petshop/
-├── estoque-petshop-frontend/      # Aplicação React
-├── estoque-petshop-backend/       # API Node.js/Express
-├── database/      # Scripts SQL e migrations
+# 📂 Estrutura do Projeto
+
+```text
+fluxo-caixa/
+├── fluxodecaixa-salao-frontend/   # Aplicação React
+├── fluxodecaixa-salao-backend/    # API Node.js/Express
+├── database/                      # Scripts SQL
 └── README.md
+```
 
 ---
 
-## 🚀 Tecnologias Utilizadas
-- **Frontend:** React, Axios
-- **Backend:** Node.js, Express, PostgreSQL
-- **Banco de Dados:** PostgreSQL (com scripts SQL para criação de tabelas e dados iniciais)
+# 🚀 Tecnologias Utilizadas
+
+### Frontend
+- React
+- Axios
+
+### Backend
+- Node.js
+- Express
+- PostgreSQL
+- Dotenv
+
+### Banco de Dados
+- PostgreSQL
 
 ---
 
-## ⚙️ Como rodar o projeto
+# ⚙️ Como Executar o Projeto
 
-### 1. Clonar o repositório
+## 1. Clonar o Repositório
+
 ```bash
-git clone https://github.com/RenanJacobsen/controle-estoque-petshop.git
-cd controle-estoque-petshop
+git clone https://github.com/RenanJacobsen/fluxo-caixa.git
+cd fluxo-caixa
+```
 
-### 2. Configurar o banco de dados
-Crie um banco PostgreSQL.
+---
 
-Execute os scripts em database/schema.sql e database/seed.sql.
+## 2. Configurar o Banco de Dados
 
-3. Rodar o backend
-cd estoque-petshop-backend
-node server.js
+Crie o banco PostgreSQL:
 
-O backend ficará disponível em http://localhost:4000.
+```sql
+CREATE DATABASE postgres;
+```
 
-4. Rodar o frontend
-cd estoque-petshop-frontend
-npm start
+Crie as tabelas:
 
-O frontend ficará disponível em http://localhost:3000.
+```sql
+CREATE TABLE entradas (
+    id SERIAL PRIMARY KEY,
+    descricao VARCHAR(255) NOT NULL,
+    categoria VARCHAR(100) NOT NULL,
+    cliente VARCHAR(255),
+    valor NUMERIC(10,2) NOT NULL,
+    data DATE NOT NULL
+);
+```
 
-📊 Funcionalidades
-Cadastro de produtos
+```sql
+CREATE TABLE saidas (
+    id SERIAL PRIMARY KEY,
+    descricao VARCHAR(255) NOT NULL,
+    categoria VARCHAR(100) NOT NULL,
+    fornecedor VARCHAR(255),
+    valor NUMERIC(10,2) NOT NULL,
+    data DATE NOT NULL
+);
+```
 
-Consulta de estoque atual
+---
 
-Registro de movimentações (entrada/saída)
+## 3. Configurar o Backend
 
-Relatórios de movimentações
+Acesse:
 
-🔒 Configuração
-Crie um arquivo .env no backend com as credenciais do banco:
-DB_USER=seu_usuario
+```bash
+cd fluxodecaixa-salao-backend
+```
+
+Instale as dependências:
+
+```bash
+npm install
+```
+
+Crie um arquivo `.env`:
+
+```env
+DB_USER=postgres
 DB_PASSWORD=sua_senha
 DB_HOST=localhost
 DB_PORT=5432
-DB_DATABASE=estoque_petshop
+DB_NAME=postgres
+```
 
-👨‍💻 Autor
-Projeto desenvolvido por Renan Jacobsen e outros alunos da Univesp, para materia de projeto integrador III.
+---
+
+## 4. Rodar o Backend
+
+```bash
+node server.js
+```
+
+Servidor disponível em:
+
+```text
+http://localhost:3001
+```
+
+---
+
+## 5. Rodar o Frontend
+
+Abra outro terminal:
+
+```bash
+cd fluxodecaixa-salao-frontend
+```
+
+Instale as dependências:
+
+```bash
+npm install
+```
+
+Execute:
+
+```bash
+npm start
+```
+
+Aplicação disponível em:
+
+```text
+http://localhost:3000
+```
+
+---
+
+# 📊 Funcionalidades
+
+✅ Cadastro de Entradas Financeiras
+
+✅ Cadastro de Saídas Financeiras
+
+✅ Controle de Fluxo de Caixa
+
+✅ Relatório Financeiro
+
+✅ Cálculo Automático de Saldo
+
+✅ Integração com PostgreSQL
+
+✅ API REST em Node.js
+
+✅ Interface Responsiva em React
+
+---
+
+# 🔒 Configuração de Ambiente
+
+Arquivo `.env`:
+
+```env
+DB_USER=postgres
+DB_PASSWORD=sua_senha
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=postgres
+```
+
+---
+
+# 📸 Telas do Sistema
+
+- Cadastro de Entradas
+- Cadastro de Saídas
+- Fluxo de Caixa
+- Relatório Financeiro
+
+---
+
+# 👨‍💻 Autor
+
+Projeto desenvolvido por **Renan Jacobsen** e demais alunos da **UNIVESP** para a disciplina de **Projeto Integrador II**.
+
+---
+
+# 📄 Licença
+
+Este projeto possui fins acadêmicos e educacionais.
 
 
 
