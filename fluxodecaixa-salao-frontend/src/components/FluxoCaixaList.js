@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import api from '../api';
 
-function FluxoCaixaList() {
+function FluxoCaixaList({
+  atualizar,
+  onAtualizarDados
+}) {
   const [entradas, setEntradas] = useState([]);
   const [saidas, setSaidas] = useState([]);
 
   useEffect(() => {
     carregarDados();
-  }, []);
+  }, [atualizar]);
 
   const carregarDados = async () => {
     try {
@@ -22,9 +25,49 @@ function FluxoCaixaList() {
     }
   };
 
+  const excluirEntrada = async (id) => {
+    if (!window.confirm('Deseja excluir esta entrada?')) {
+      return;
+    }
+
+    try {
+      await api.delete(`/entradas/${id}`);
+
+if (onAtualizarDados) {
+  onAtualizarDados();
+}
+
+    } catch (error) {
+      console.error('Erro ao excluir entrada:', error);
+    }
+  };
+
+  const excluirSaida = async (id) => {
+    if (!window.confirm('Deseja excluir esta saída?')) {
+      return;
+    }
+
+    try {
+      await api.delete(`/saidas/${id}`);
+
+if (onAtualizarDados) {
+  onAtualizarDados();
+}
+
+    } catch (error) {
+      console.error('Erro ao excluir saída:', error);
+    }
+  };
+
   const saldo =
-    entradas.reduce((total, item) => total + Number(item.valor), 0) -
-    saidas.reduce((total, item) => total + Number(item.valor), 0);
+    entradas.reduce(
+      (total, item) => total + Number(item.valor),
+      0
+    ) -
+    saidas.reduce(
+      (total, item) => total + Number(item.valor),
+      0
+    );
 
   return (
     <div>
@@ -44,6 +87,7 @@ function FluxoCaixaList() {
             <th>Cliente</th>
             <th>Valor</th>
             <th>Data</th>
+            <th>Ações</th>
           </tr>
         </thead>
 
@@ -54,7 +98,20 @@ function FluxoCaixaList() {
               <td>{entrada.categoria}</td>
               <td>{entrada.cliente}</td>
               <td>R$ {Number(entrada.valor).toFixed(2)}</td>
-              <td>{new Date(entrada.data).toLocaleDateString('pt-BR')}</td>
+              <td>
+                {new Date(
+                  entrada.data
+                ).toLocaleDateString('pt-BR')}
+              </td>
+              <td>
+                <button
+                  onClick={() =>
+                    excluirEntrada(entrada.id)
+                  }
+                >
+                  Excluir
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
@@ -72,6 +129,7 @@ function FluxoCaixaList() {
             <th>Fornecedor</th>
             <th>Valor</th>
             <th>Data</th>
+            <th>Ações</th>
           </tr>
         </thead>
 
@@ -82,13 +140,25 @@ function FluxoCaixaList() {
               <td>{saida.categoria}</td>
               <td>{saida.fornecedor}</td>
               <td>R$ {Number(saida.valor).toFixed(2)}</td>
-              <td>{new Date(saida.data).toLocaleDateString('pt-BR')}</td>
+              <td>
+                {new Date(
+                  saida.data
+                ).toLocaleDateString('pt-BR')}
+              </td>
+              <td>
+                <button
+                  onClick={() =>
+                    excluirSaida(saida.id)
+                  }
+                >
+                  Excluir
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
-
-       </div>
+    </div>
   );
 }
 

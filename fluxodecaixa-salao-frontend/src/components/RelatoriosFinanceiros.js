@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import api from '../api';
 
-function RelatoriosFinanceiros() {
+function RelatoriosFinanceiros({ atualizar }) {
   const [entradas, setEntradas] = useState([]);
   const [saidas, setSaidas] = useState([]);
 
   useEffect(() => {
-    carregarDados();
-  }, []);
+  carregarDados();
+}, [atualizar]);
 
   const carregarDados = async () => {
     try {
@@ -16,6 +16,7 @@ function RelatoriosFinanceiros() {
 
       setEntradas(entradasResponse.data);
       setSaidas(saidasResponse.data);
+
     } catch (error) {
       console.error('Erro ao carregar relatório:', error);
     }
@@ -33,34 +34,122 @@ function RelatoriosFinanceiros() {
 
   const saldo = totalEntradas - totalSaidas;
 
+  const exportarPDF = () => {
+    window.open(
+      'http://localhost:3001/api/relatorios/pdf',
+      '_blank'
+    );
+  };
+
+  const extrato = [
+    ...entradas.map(item => ({
+      ...item,
+      tipo: 'Entrada'
+    })),
+    ...saidas.map(item => ({
+      ...item,
+      tipo: 'Saída'
+    }))
+  ].sort(
+    (a, b) => new Date(b.data) - new Date(a.data)
+  );
+
   return (
     <div>
+
       <h2>Relatório Financeiro</h2>
 
-      <div>
-        <h3>Total de Entradas</h3>
-        <p>R$ {totalEntradas.toFixed(2)}</p>
-      </div>
+      <button onClick={exportarPDF}>
+        📄 Exportar Relatório PDF
+      </button>
 
-      <div>
-        <h3>Total de Saídas</h3>
-        <p>R$ {totalSaidas.toFixed(2)}</p>
-      </div>
+      <br />
+      <br />
 
-      <div>
-        <h3>Saldo Atual</h3>
-        <p>R$ {saldo.toFixed(2)}</p>
-      </div>
+      <table border="1">
+        <thead>
+          <tr>
+            <th>Descrição</th>
+            <th>Valor</th>
+          </tr>
+        </thead>
 
-      <div>
-        <h3>Quantidade de Entradas</h3>
-        <p>{entradas.length}</p>
-      </div>
+        <tbody>
+          <tr>
+            <td>Total de Entradas</td>
+            <td>R$ {totalEntradas.toFixed(2)}</td>
+          </tr>
 
-      <div>
-        <h3>Quantidade de Saídas</h3>
-        <p>{saidas.length}</p>
-      </div>
+          <tr>
+            <td>Total de Saídas</td>
+            <td>R$ {totalSaidas.toFixed(2)}</td>
+          </tr>
+
+          <tr>
+            <td>Saldo Atual</td>
+            <td>R$ {saldo.toFixed(2)}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <br />
+
+      <h2>Extrato Financeiro</h2>
+
+      <table border="1">
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Tipo</th>
+            <th>Descrição</th>
+            <th>Categoria</th>
+            <th>Valor</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {extrato.map((movimento) => (
+            <tr key={`${movimento.tipo}-${movimento.id}`}>
+              <td>
+                {new Date(
+                  movimento.data
+                ).toLocaleDateString('pt-BR')}
+              </td>
+
+              <td>
+                {movimento.tipo}
+              </td>
+
+              <td>
+                {movimento.descricao}
+              </td>
+
+              <td>
+                {movimento.categoria}
+              </td>
+
+              <td
+                style={{
+                  color:
+                    movimento.tipo === 'Entrada'
+                      ? 'green'
+                      : 'red',
+                  fontWeight: 'bold'
+                }}
+              >
+                {movimento.tipo === 'Entrada'
+                  ? '+'
+                  : '-'}
+                {' '}
+                R$ {Number(
+                  movimento.valor
+                ).toFixed(2)}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
     </div>
   );
 }

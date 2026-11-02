@@ -4,6 +4,15 @@ body {
   background: #f5f5f5;
 }
 
+h1 {
+  color: #1976d2;
+  text-align: center;
+}
+
+h2 {
+  color: #1976d2;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -19,8 +28,38 @@ th,
 td {
   padding: 10px;
   border: 1px solid #ddd;
+  text-align: left;
 }
 
-h1 {
-  color: #1976d2;
+button {
+  background: #1976d2;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #125ea8;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+hr {
+  margin: 30px 0;
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
 }

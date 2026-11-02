@@ -40,7 +40,10 @@ function EntradaForm({ onEntradaRegistrada }) {
     }
   };
 
-  return (
+    return (
+  <div>
+    <h2>Registrar Entrada</h2>
+
     <form onSubmit={handleSubmit}>
 
       <input
@@ -94,8 +97,9 @@ function EntradaForm({ onEntradaRegistrada }) {
         Registrar Entrada
       </button>
 
-    </form>
-  );
+        </form>
+  </div>
+);
 }
 
 export default EntradaForm;
