@@ -2,7 +2,7 @@
 
 Sistema completo para gerenciamento financeiro de um salão de beleza.
 
-Permite o controle de entradas e saídas financeiras, cálculo automático de saldo e geração de relatórios para acompanhamento do fluxo de caixa.
+Permite o controle de entradas e saídas financeiras, cálculo automático de saldo e geração de relatórios para acompanhamento do fluxo de caixa e inclui ferramenta de acessibilidade VLibras. 
 
 Inclui:
 
