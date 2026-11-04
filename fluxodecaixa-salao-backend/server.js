@@ -14,6 +14,9 @@ app.use('/api/entradas', entradaRoutes);
 app.use('/api/saidas', saidaRoutes);
 app.use('/api/relatorios', relatorioRoutes);
 
-app.listen(3001, () => {
-  console.log('Servidor rodando na porta 3001');
+// Configuração corrigida para aceitar a porta do servidor de hospedagem
+const PORT = process.env.PORT || 3001;
+
+app.listen(PORT, () => {
+    console.log(`Servidor rodando na porta ${PORT}`);
 });
