@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:3001/api'
+  baseURL: 'https://fluxo-caixa-od3r.onrender.com/api'
 });
 
 export default api;
