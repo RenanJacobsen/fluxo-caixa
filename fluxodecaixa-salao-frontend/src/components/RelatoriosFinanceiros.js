@@ -35,11 +35,11 @@ function RelatoriosFinanceiros({ atualizar }) {
   const saldo = totalEntradas - totalSaidas;
 
   const exportarPDF = () => {
-    window.open(
-      'http://localhost:3001/api/relatorios/pdf',
-      '_blank'
-    );
-  };
+  window.open(
+    `${api.defaults.baseURL}/relatorios/pdf`,
+    '_blank'
+  );
+};
 
   const extrato = [
     ...entradas.map(item => ({
